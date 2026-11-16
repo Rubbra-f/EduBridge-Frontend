@@ -1,49 +1,32 @@
-# EduBridge
+# EduBridge Frontend
 
-EduBridge is a web-based learning platform that helps students identify learning gaps through assessments and personalized learning diagnosis.
+Standalone React + Vite + Tailwind frontend extracted from the original EduBridge repository.
 
-## Tech Stack
-
-- **Frontend:** React, Vite, Tailwind CSS
-- **Backend:** Python, FastAPI
-- **Model:** P-DINA
-- **Deployment:** Docker
-
-## Features
-
-- Student dashboard
-- Online assessments
-- Student performance analysis
-- Learning gap diagnosis
-- Personalized learning recommendations
-
-## Getting Started
-
-### Frontend
+## Run locally
 
 ```bash
 npm install
+cp .env.example .env.local
+# Set EDUBRIDGE_API_KEY in .env.local
 npm run dev
 ```
 
-### Backend
+The Vite development proxy forwards `/api` to `EDUBRIDGE_API_TARGET` (default `http://127.0.0.1:8000`) and injects `X-API-Key` server-side. Never expose the shared backend key through a `VITE_*` variable or browser code.
 
-```bash
-cp .env.example .env
-docker compose up --build
-```
+## Included frontend
 
-## Project Structure
+- React/Vite application and routing
+- Login and registration screens
+- Dashboard, quiz, progress, profile, and learning catalog pages
+- Shared UI/layout components
+- API client for model, assessment bank, image, submission, and narrative endpoints
 
-```text
-EduBridge/
-├── backend/
-├── docs/
-├── public/
-├── scripts/
-├── src/
-├── docker-compose.yml
-└── package.json
-```
+## Important migration note
 
-For backend integration details, see [docs/INTEGRATION.md](docs/INTEGRATION.md).
+The source code files were migrated, while binary image assets could not be copied by the available GitHub text-file transfer interface. Some image imports or question illustrations may therefore need a follow-up asset migration. The original repository remains unchanged.
+
+The backend remains separate in [EduBridge-Backend](https://github.com/Rubbra-f/EduBridge-Backend).
+
+## Production security
+
+The Vite proxy is for local development only. Production must use user-scoped authentication or a server-side BFF/API gateway that keeps the backend credential private.
