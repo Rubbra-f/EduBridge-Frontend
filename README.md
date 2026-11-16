@@ -1,50 +1,49 @@
-# EduBridge Frontend
+# EduBridge
 
-Standalone React + Vite frontend for the EduBridge platform.
+EduBridge is a web-based learning platform that helps students identify learning gaps through assessments and personalized learning diagnosis.
 
-## Requirements
+## Tech Stack
 
-- Node.js 20.19+ or 22.12+
-- npm
-- EduBridge FastAPI backend
+- **Frontend:** React, Vite, Tailwind CSS
+- **Backend:** Python, FastAPI
+- **Model:** P-DINA
+- **Deployment:** Docker
 
-## Local development
+## Features
+
+- Student dashboard
+- Online assessments
+- Student performance analysis
+- Learning gap diagnosis
+- Personalized learning recommendations
+
+## Getting Started
+
+### Frontend
 
 ```bash
 npm install
-cp .env.example .env.local
-```
-
-Set `EDUBRIDGE_API_TARGET` and `EDUBRIDGE_API_KEY` in `.env.local`, then run:
-
-```bash
 npm run dev
 ```
 
-Vite proxies `/api` requests to the backend and injects `X-API-Key` on the development server. The key is not exposed to browser JavaScript.
-
-## Build
+### Backend
 
 ```bash
-npm run build
-npm run preview
+cp .env.example .env
+docker compose up --build
 ```
 
-## API integration
+## Project Structure
 
-The API client is in `src/services/edubridgeApi.js`. It currently wraps:
+```text
+EduBridge/
+├── backend/
+├── docs/
+├── public/
+├── scripts/
+├── src/
+├── docker-compose.yml
+└── package.json
+```
 
-- `GET /api/v1/model`
-- `GET /api/v1/assessment/fixed`
-- `GET /api/v1/assessment/bank`
-- `POST /api/v1/assessment/submit`
-- `POST /api/v1/narrative`
-- `GET /api/v1/assessment/images/{question_id}`
-
-## Production security
-
-Do not put the backend's shared API key in a `VITE_*` variable or in browser code. The Vite proxy is for local development only. Production deployment needs user authentication with scoped tokens or a server-side BFF/API gateway that keeps the backend credential private.
-
-## Repository separation
-
-This repository contains frontend code only. The API, model, database, and analytics remain in [EduBridge-Backend](https://github.com/Rubbra-f/EduBridge-Backend).
+For backend integration details, see [docs/INTEGRATION.md](docs/INTEGRATION.md).
